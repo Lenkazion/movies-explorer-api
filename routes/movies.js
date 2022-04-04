@@ -9,7 +9,7 @@ const {
 } = require('../middlewares/validator');
 
 movieRouter.get('/movies', getMovies);
-movieRouter.post('/movies', createMovie, validateCreateMovie);
-movieRouter.delete('/movies/:id', deleteMovie, validateDeleteMovie);
+movieRouter.post('/movies', validateCreateMovie, createMovie);
+movieRouter.delete('/movies/:id', validateDeleteMovie, deleteMovie);
 
 module.exports = movieRouter;

@@ -37,7 +37,7 @@ const movieSchema = new mongoose.Schema({
       message: 'Ссылка не подходит.',
     },
   },
-  trailer: {
+  trailerLink: {
     type: String,
     required: true,
     validate: {

@@ -11,8 +11,8 @@ const auth = require('../middlewares/auth');
 const userRouter = require('./users');
 const movieRouter = require('./movies');
 
-router.post('/signin', login, validateSignin);
-router.post('/signup', createUser, validateSignup);
+router.post('/signin', validateSignin, login);
+router.post('/signup', validateSignup, createUser);
 
 router.use(auth, userRouter);
 router.use(auth, movieRouter);

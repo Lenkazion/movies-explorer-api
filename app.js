@@ -14,13 +14,13 @@ const app = express();
 
 const { PORT = 3000, NODE_ENV, MONGO_ADRESS } = process.env;
 
+app.use(requestLogger);
+app.use(rateLimiter);
 app.use(express.json());
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(requestLogger);
 app.use(helmet());
-app.use(rateLimiter);
 
 mongoose.connect(NODE_ENV === 'production' ? MONGO_ADRESS : 'mongodb://127.0.0.1:27017/moviesdb');
 

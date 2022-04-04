@@ -48,8 +48,7 @@ module.exports.createUser = (req, res, next) => {
       } else {
         next(err);
       }
-    })
-    .catch(next);
+    });
 };
 
 module.exports.updateProfile = (req, res, next) => {
@@ -74,8 +73,7 @@ module.exports.updateProfile = (req, res, next) => {
       } else {
         next(err);
       }
-    })
-    .catch(next);
+    });
 };
 
 module.exports.login = (req, res, next) => {
@@ -100,6 +98,5 @@ module.exports.login = (req, res, next) => {
     })
     .catch(() => {
       throw new UnauthorizedError('Указан некорректный Email или пароль.');
-    })
-    .catch(next);
+    });
 };

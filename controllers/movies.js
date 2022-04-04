@@ -33,15 +33,14 @@ module.exports.createMovie = (req, res, next) => {
 };
 
 module.exports.deleteMovie = (req, res, next) => {
-  const owner = req.user._id;
   Movie.findById(req.params.id)
-    .orFail(() => new NotFoundError('Передан несуществующий ID фильма для его удаления.'))
+    .orFail(new NotFoundError('Передан несуществующий ID фильма для его удаления.'))
     .then((movie) => {
-      if (movie.owner.toString() === owner) {
-        movie.remove()
-          .then(res.status(200).send({ message: 'Фильм удален!' }));
+      if (movie.owner.toString() === req.user._id.toString()) {
+        return movie.remove()
+          .then(() => res.status(200).send({ message: 'Фильм удален!' }));
       }
-      return next(new ForbiddenError('Нет доступа к удалению фильма.'));
+      throw new ForbiddenError('Нет доступа к удалению фильма.');
     })
     .catch((err) => {
       if (err.name === 'CastError') {
