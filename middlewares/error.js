@@ -1,9 +1,9 @@
 module.exports = (err, req, res, next) => {
-  const { errorCode = 500, message } = err;
+  const { statusCode = 500, message } = err;
   res
-    .status(errorCode)
+    .status(statusCode)
     .send({
-      message: errorCode === 500 ? 'Ошибка сервера.' : message,
+      message: statusCode === 500 ? 'Ошибка сервера.' : message,
     });
   next();
 };

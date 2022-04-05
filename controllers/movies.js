@@ -7,7 +7,7 @@ module.exports.getMovies = (req, res, next) => {
   const owner = req.user._id;
 
   Movie.find({ owner })
-    .orFail(new NotFoundError('Передан несуществующий ID пользователя.'))
+    .orFail(new NotFoundError('Фильмы не найдены.'))
     .then((cards) => {
       res.send(cards);
     })
@@ -34,7 +34,7 @@ module.exports.createMovie = (req, res, next) => {
 
 module.exports.deleteMovie = (req, res, next) => {
   Movie.findById(req.params.id)
-    .orFail(new NotFoundError('Передан несуществующий ID фильма для его удаления.'))
+    .orFail(() => new NotFoundError('Передан несуществующий ID фильма для его удаления.'))
     .then((movie) => {
       if (movie.owner.toString() === req.user._id.toString()) {
         return movie.remove()
