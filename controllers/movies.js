@@ -7,7 +7,6 @@ module.exports.getMovies = (req, res, next) => {
   const owner = req.user._id;
 
   Movie.find({ owner })
-    .orFail(new NotFoundError('Фильмы не найдены.'))
     .then((cards) => {
       res.send(cards);
     })
@@ -26,7 +25,9 @@ module.exports.createMovie = (req, res, next) => {
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        throw new BadRequestError('Ошибка валидации: Переданы некорректные данные при создании фильма.');
+      // throw new BadRequestError('Ошибка валидации: Переданы некорректные данные при
+      // создании фильма.');
+        throw new BadRequestError(err.message);
       }
     })
     .catch(next);
