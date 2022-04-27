@@ -71,21 +71,11 @@ const movieSchema = new mongoose.Schema({
     type: String,
     minlength: 3,
     required: true,
-    validate: {
-      validator(name) {
-        return /[а-я.:!?"«»;@%№()*#,ё\s]/gi.test(name);
-      },
-    },
   },
   nameEN: {
     type: String,
     minlength: 3,
     required: true,
-    validate: {
-      validator(name) {
-        return /[\w.:!?"«»;@%№()*#,\s]/gi.test(name);
-      },
-    },
   },
 });
 
