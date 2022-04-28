@@ -21,7 +21,7 @@ module.exports.createMovie = (req, res, next) => {
 
   Movie.create({ owner, ...req.body })
     .then((movie) => {
-      res.status(200).send({ data: movie });
+      res.status(200).send(movie);
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
@@ -37,7 +37,7 @@ module.exports.deleteMovie = (req, res, next) => {
     .then((movie) => {
       if (movie.owner.toString() === req.user._id.toString()) {
         return movie.remove()
-          .then(() => res.status(200).send({ message: 'Фильм удален!' }));
+          .then(() => res.status(200).send(movie));
       }
       throw new ForbiddenError('Нет доступа к удалению фильма.');
     })
